@@ -39,8 +39,8 @@ def textadder():
     name = os.path.splitext(user_input1)[0]
     clip = VideoFileClip(user_input1)
     desiredText = raw_input("What text you want to add?: ")
-    txt = TextClip(desiredText, font='Courier', fontsize=120, color='white')
-    txt = txt.set_pos('center').set_duration(5)
+    txt = TextClip(desiredText, font='Courier', fontsize=30, color='white')
+    txt = txt.set_pos('right', 'bottom').set_duration(5)
 
     Current_Date = datetime.datetime.today().strftime("%H.%M.%S")
     video = CompositeVideoClip([clip, txt])
@@ -108,13 +108,26 @@ def converter(): # converting function
 
 
 
+def action():
 
-action = raw_input("What do you want to do? \n"
+    action = raw_input("What do you want to do? \n"
                    "1: Add text to a clip \n"
                    "2: Edit clip Answer \n"
                    "3: Merge two clips \n"
                    "Answer: ")
+    if action == "1":
+        textadder()
+    if action == "2":
+        converter()
+    else:
+        clipMerger()
+
 if path_name == 'C:\\Users\\rt\\PycharmProjects\\gifconverter':
+    action = raw_input("What do you want to do? \n"
+                       "1: Add text to a clip \n"
+                       "2: Edit clip Answer \n"
+                       "3: Merge two clips \n"
+                       "Answer: ")
     if action == "1":
         textadder()
     if action == "2":
@@ -122,18 +135,16 @@ if path_name == 'C:\\Users\\rt\\PycharmProjects\\gifconverter':
     else:
         clipMerger()
 else:
-    print("File is not in working directory! Do you want to move file?")
-    user_input2 = raw_input()
+    user_input2 = raw_input("File is not in working directory! Do you want to move file?: ")
     if user_input2 == 'yes':
         path = path_name + '/' + user_input1
         moveto = 'C:/Users/rt/PycharmProjects/gifconverter'
         src = path
         dst = moveto
         shutil.move(src, dst)
-        print("File was moved, do you want to continue?")
-        user_input3 = raw_input()
-        if user_input2 == 'yes':
-            converter()
+        user_input3 = raw_input("File was moved, do you want to continue?: ")
+        if user_input3 == 'yes':
+            action()
     else:
         exit()
 
